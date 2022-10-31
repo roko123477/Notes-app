@@ -106,7 +106,7 @@ app.get('/',(req,res)=>{
      res.render('home.ejs');
 });
 
-app.get('/notes',catchAsync(async(req,res)=>{
+app.get('/notes',isLoggedIn,catchAsync(async(req,res)=>{
     const {id}=req.user;
  
   //  console.log(id);
