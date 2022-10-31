@@ -1,0 +1,83 @@
+<link rel="stylesheet" href="//code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
+<link rel="stylesheet" href="/css/search.css">
+<script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+<script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
+<nav class="navbar sticky-top navbar-expand-lg navbar-dark bg-dark">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="#">Notify</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav">
+          <li class="nav-item">
+            <a class="nav-link" href="/">Home</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/notes">Notes</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/notes">New Note</a>
+          </li>
+         
+        </ul>
+
+        
+        <div class="navbar-nav d-flex flex-column align-items-center align-items-sm-end flex-lg-row flex-lg-fill">
+          
+          <form action="/notes/search" method="post" class="d-flex my-1 my-lg-0 flex-grow-1 mx-lg-3 validated-form" novalidate>
+           
+            <input name="q" id="search" type="search" placeholder="Search notes" aria-label="Search" 
+              class="form-control w-100 me-2 bg-dark text-white btn-outline-secondary" required>
+             
+            <button class="btn btn-outline-secondary" type="submit" aria-label="search"><i class="bi bi-search"></i></button>
+         
+          </form>
+        </div>
+        
+      </div>
+    
+
+           
+      <div class="navbar-nav ml-auto">
+        <% if(!currentUser){ %> 
+        <a class="nav-link" href="/login">Login</a>
+        <a class="nav-link" href="/register">Sign Up</a>
+        <% }else{ %>
+          <span class="navbar-text text-warning">
+            Welcome, <%= currentUser.username %>!
+        </span> 
+        <a class="nav-link" href="/logout">Logout</a>
+        <% } %> 
+      </div>
+    </div>
+  </nav>
+
+  <script>
+    $(function(){
+  $('#search').autocomplete({
+    
+  source: function(req,res){
+    $.ajax({
+      url:"autocomplete/",
+      dataType:"jsonp",
+      type:"GET",
+      data:req,
+      success: function(data){
+        res(data)
+      },
+      error: function(err){
+        console.log(err.status);
+      }
+    });
+  },
+  minLength:1,
+  select: function(event,ui){
+    if(ui.item){
+      $('#search').val(ui.item.label);
+    }
+  }
+  });
+    });
+    </script> 
+     

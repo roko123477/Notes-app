@@ -1,0 +1,196 @@
+<% layout('/layouts/boilerplate') %>
+
+    
+<link rel="stylesheet" href="/css/cardFlex.css">
+
+<div class="container mb-3">
+<div class="row mb-3">
+    <h1 class="text-center fw-lighter mb-4 text-muted text-decoration-underline">Add your Notes</h1>
+    <div class="col-md-6 offset-md-3">
+<form action="/notes" method="post" novalidate class="validated-form" enctype="multipart/form-data">
+    <div class="mb-3">
+        <label class="form-label" for="title">Title</label>
+        <input class="form-control" type="text" id="title" name="notes[title]" placeholder="add your note title.." required>
+        <div class="valid-feedback">
+            Looks good!
+          </div>
+    </div>
+
+    <div class="mb-3">
+        <div class="custom-file">
+            <label for="">Upload Image of note</label>
+            <input type="file" class="form-control" id="image" name="image" multiple>
+            <label class="form-label" for="image">
+                <span class="form-text custom-file-label">Choose images...</span>
+               
+            </label>
+        </div>
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label" for="description">Description</label>
+        <input class="form-control" type="text" id="description" name="notes[description]" placeholder="add your note description.." required>
+        <div class="valid-feedback">
+            Looks good!
+          </div>
+    </div>
+    
+    <button type="submit" class="btn btn-success col-12">Add note</button>
+</form>
+</div>
+</div>
+</div>
+
+
+<div class="container mb-3">
+    <h1 class="text-center mb-3 fw-lighter mb-4 text-muted text-decoration-underline">Notes added By <span class="text-primary">&mdash; <%=currentUser.username%></span></h1>
+    <div class="row" data-masonry='{"percentPosition": true }'>
+        <div class="col-12 col-md-3 col-lg-2">
+            <%for(let i=0;i<notes.length;i+=6){%>
+                <a class="link-dark text-decoration-none" href="/notes/<%=notes[i]._id %>">
+
+            <div class="card mb-2 bg-primary text-white">
+                <div id="noteCarousel" class="carousel slide" data-bs-ride="carousel">
+                    <div class="carousel-inner">
+                      <% notes[i].images.forEach((img,i)=>{ %>
+                      <div class="carousel-item <%= i===0 ? 'active': ''%>">
+                        <img src="<%=img.url%>" class="d-block w-100" alt="">
+                      </div>
+                      <% }) %> 
+                    </div>
+                    <%if(notes[i].images.length>1){ %> 
+                    <button class="carousel-control-prev" type="button" data-bs-target="#noteCarousel" data-bs-slide="prev">
+                      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                      <span class="visually-hidden">Previous</span>
+                    </button>
+                    <button class="carousel-control-next" type="button" data-bs-target="#noteCarousel" data-bs-slide="next">
+                      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                      <span class="visually-hidden">Next</span>
+                    </button>
+                    <% } %>
+                  </div>
+                
+                <div class="card-body">
+                    <h5 class="card-title"><%=notes[i].title%></h5>
+                    <p class="card-text"><%=notes[i].description%></p>
+                    <div class="card-footer bg-light">
+                        <small class="text-primary text-end">&mdash; <%=currentUser.username%> </small>
+                        <small class="text-muted">&vert; <%=notes[i].lastUpdatedString%> </small>
+                    </div>
+                    
+                    <!-- <a href="#" class="btn btn-primary">I'm Batman, So Click Me!!!</a> -->
+                </div>
+            </div>
+            </a>
+            <%}%> 
+        </div>
+        
+        <div class="col-12 col-md-3 col-lg-2">
+            <%for(let i=1;i<notes.length;i+=6){%>
+                <a class="link-dark text-decoration-none" href="/notes/<%=notes[i]._id %>">
+            <div class="card mb-2 bg-secondary text-white">
+                <img src="<%=notes[i].images[0].url%> " class="card-img-top" alt="">
+                
+                <div class="card-body">
+                    <h5 class="card-title"><%=notes[i].title%></h5>
+                    <p class="card-text"><%=notes[i].description%></p>
+                    <div class="card-footer bg-light">
+                        <small class="text-primary text-end">&mdash; <%=currentUser.username%> </small>
+                        <small class="text-muted">&vert; <%=notes[i].lastUpdatedString%> </small>
+                    </div>
+                    
+                    <!-- <a href="#" class="btn btn-primary">I'm Batman, So Click Me!!!</a> -->
+                </div>
+            </div>
+            </a>
+            <%}%> 
+        </div>
+        
+        <div class="col-12 col-md-3 col-lg-2">
+            <%for(let i=2;i<notes.length;i+=6){%>
+                <a class="link-dark text-decoration-none" href="/notes/<%=notes[i]._id %>">
+            <div class="card mb-2 bg-danger text-white">
+                <img src="<%=notes[i].images[0].url%> " class="card-img-top" alt="">
+                
+                <div class="card-body">
+                    <h5 class="card-title"><%=notes[i].title%></h5>
+                    <p class="card-text"><%=notes[i].description%></p>
+                    <div class="card-footer bg-light">
+                        <small class="text-primary text-end">&mdash; <%=currentUser.username%> </small>
+                        <small class="text-muted">&vert; <%=notes[i].lastUpdatedString%> </small>
+                    </div>
+                    
+                    <!-- <a href="#" class="btn btn-primary">I'm Batman, So Click Me!!!</a> -->
+                </div>
+            </div>
+            </a>
+            <%}%> 
+        </div>
+        
+        <div class="col-12 col-md-3 col-lg-2">
+            <%for(let i=3;i<notes.length;i+=6){%>
+                <a class="link-dark text-decoration-none" href="/notes/<%=notes[i]._id %>">
+            <div class="card mb-2 text-dark bg-light">
+                <img src="<%=notes[i].images[0].url%> " class="card-img-top" alt="">
+                
+                <div class="card-body">
+                    <h5 class="card-title"><%=notes[i].title%></h5>
+                    <p class="card-text"><%=notes[i].description%></p>
+                    <div class="card-footer bg-dark">
+                        <small class="text-warning text-end">&mdash; <%=currentUser.username%> </small>
+                        <small class="text-white">&vert; <%=notes[i].lastUpdatedString%> </small>
+                    </div>
+                    
+                    <!-- <a href="#" class="btn btn-primary">I'm Batman, So Click Me!!!</a> -->
+                </div>
+            </div>
+            </a>
+            <%}%> 
+        </div>
+        
+        <div class="col-12 col-md-3 col-lg-2">
+            <%for(let i=4;i<notes.length;i+=6){%>
+                <a class="link-dark text-decoration-none" href="/notes/<%=notes[i]._id %>">
+            <div class="card mb-2 bg-info text-white">
+                <img src="<%=notes[i].images[0].url%> " class="card-img-top" alt="">
+                
+                <div class="card-body">
+                    <h5 class="card-title"><%=notes[i].title%></h5>
+                    <p class="card-text"><%=notes[i].description%></p>
+                    <div class="card-footer bg-light">
+                        <small class="text-primary text-end">&mdash; <%=currentUser.username%> </small>
+                        <small class="text-muted">&vert; <%=notes[i].lastUpdatedString%> </small>
+                    </div>
+                    
+                    <!-- <a href="#" class="btn btn-primary">I'm Batman, So Click Me!!!</a> -->
+                </div>
+            </div>
+            </a>
+            <%}%> 
+        </div>
+        
+        <div class="col-12 col-md-3 col-lg-2">
+            <%for(let i=5;i<notes.length;i+=6){%>
+                <a class="link-dark text-decoration-none" href="/notes/<%=notes[i]._id %>">
+            <div class="card mb-1 bg-dark text-white">
+                <img src="<%=notes[i].images[0].url%> " class="card-img-top" alt="">
+                
+                <div class="card-body">
+                    <h5 class="card-title"><%=notes[i].title%></h5>
+                    <p class="card-text"><%=notes[i].description%></p>
+                    <div class="card-footer bg-light">
+                        <small class="text-primary text-end">&mdash; <%=currentUser.username%> </small>
+                        <small class="text-muted">&vert; <%=notes[i].lastUpdatedString%> </small>
+                    </div>
+                    
+                    <!-- <a href="#" class="btn btn-primary">I'm Batman, So Click Me!!!</a> -->
+                </div>
+            </div>
+            </a>
+            <%}%> 
+            </div>
+        </div>
+    </div>
+</div> 
+
+</html>
