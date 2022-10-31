@@ -1,0 +1,43 @@
+<%- layout('layouts/boilerplate') %>
+
+<% if (allnotes.length) { %>
+  <h1 class="fs-2 mb-4 fw-bold mb-4 text-muted text-decoration">
+      Search Results for "<%= seachWord %>"
+  </h1>
+<% } else { %>
+  <h2 class="fs-2 mb-4 fw-bold mb-4 text-muted text-decoration"> 
+      No results for "<%= seachWord %>"
+  </h2>
+  <p class="fw-bold mb-4 text-muted text-decoration">
+      Please try searching again. You can use title from your notes in your query.
+  </p>
+<% } %>
+
+<section class="row d-flex">
+
+
+
+    <% for (let note of allnotes) { %>
+        <div class="card camp-card">
+            <div class="row g-0">
+             
+              <div class="col-md-6">
+                <div class="card-body">
+                  <h5 class="card-title">
+                    <a href="/notes/<%= note._id %>"><%= note.title%></a>
+                    
+                  </h5>
+                  <p class="card-text">
+                    <small>
+                      <%= note.description %>
+                    </small>
+                  </p>     
+                       
+                </div>
+              </div>
+            </div>
+        </div>
+    <% } %>
+  
+  </section>
+  

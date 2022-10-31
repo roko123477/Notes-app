@@ -1,0 +1,31 @@
+
+  
+  /* .card{
+    border-radius: 8px;
+    border: 1px solid #cccccc;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 5px;
+    box-sizing: border-box;
+    white-space:pre-line;
+    width: 300px;
+    height: 300px;
+    transition: all linear 200ms;
+  } */
+  .card:hover{
+    transform: scale(1.1);
+    transition: all linear 200ms;
+    z-index: 1;
+    box-shadow: 1px 1px 10px rgba(0,0,0,.3);
+    cursor: pointer;
+  }
+  /* .card {
+    max-width: 100%;
+}
+.card-text {
+ 
+    inline-size: 150px;
+    overflow-wrap: break-word;
+
+} */
